@@ -26,60 +26,60 @@ En azul se resalta la parte contenida en este repositorio <br/>
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/). La version de esta herramienta debe ser compatible con la version de IKS que se desplegó en la cuenta.
 - [TypeScript](https://www.typescriptlang.org/#download-links)
 
-### Hands On:
+### **Hands On**:
 
-1. Instalar o actualizar los plugins necesarios del IBM Cloud CLI. Reemplazar `install` con `update` si es el caso.
+### Instalar o actualizar los plugins necesarios del IBM Cloud CLI. Reemplazar `install` con `update` si es el caso.
 
 ```sh
 ibmcloud plugin install kubernetes-service
 ibmcloud plugin install container-registery
 ```
 
-2. Configuración del Container Registery (CR) de IBM en nuestra interfaz de comandos:
+### Configuración del Container Registery (CR) de IBM en nuestra interfaz de comandos:
 
-   - Iniciar sesión en nuestro terminal de comandos: <br/>
-     `ibmcloud cr login`<br/>
-     **Importante**: Tener en cuenta la región que aparece en pantalla, ya que tomará parte de los pasos siguientes.
+- Iniciar sesión en nuestro terminal de comandos: <br/>
+  `ibmcloud cr login`<br/>
+  **Importante**: Tener en cuenta la región que aparece en pantalla, ya que tomará parte de los pasos siguientes.
 
-   - Crear espacio de nombres: <br/>
-     `ibmcloud cr namespace-add <namespace>`<br/>
-     Este espacio de nombres tambien formará parte de los comandos siguientes. Se puede comprobar el nombre en cualquier momento usando el comando: <br/> `ibmcloud cr namespaces`
+- Crear espacio de nombres: <br/>
+  `ibmcloud cr namespace-add <namespace>`<br/>
+  Este espacio de nombres tambien formará parte de los comandos siguientes. Se puede comprobar el nombre en cualquier momento usando el comando: <br/> `ibmcloud cr namespaces`
 
-3. Desplegar la imagen de la Base de Datos 🐳💾
+### Desplegar la imagen de la Base de Datos 🐳💾
 
-   La aplicación utiliza MongoDB como base de datos NoSQL.
+La aplicación utiliza MongoDB como base de datos NoSQL.
 
-   - Descargar la imagen de MongoDB del registro Docker Hub:<br/>
-     Para descargar la imagen oficial de MongoDB, almacenada en el registro de imagenes Docker Hub, utilizar el comando: <br/>
-     `docker pull mongo:latest`
+- Descargar la imagen de MongoDB del registro Docker Hub:<br/>
+  Para descargar la imagen oficial de MongoDB, almacenada en el registro de imagenes Docker Hub, utilizar el comando: <br/>
+  `docker pull mongo:latest`
 
-   - Crear la imagen desplegable en el Container Registery de IBM:<br/>
-     `docker build --tag <region>/<namespace>/mongo`
+- Crear la imagen desplegable en el Container Registery de IBM:<br/>
+  `docker build --tag <region>/<namespace>/mongo`
 
-   - Subir imagen a Container Registery:
-     `docker push <region>/<namespace>/mongo`
+- Subir imagen a Container Registery:
+  `docker push <region>/<namespace>/mongo`
 
-   Necesitamos desplegar la imagen de MongoDB para enlazar la base de datos a nuestra aplicación antes de crear y desplegar la imagen de nuestra aplicación.
+Necesitamos desplegar la imagen de MongoDB para enlazar la base de datos a nuestra aplicación antes de crear y desplegar la imagen de nuestra aplicación.
 
-   - Configurar el plugin kubernetes-service: <br/>
-     `ibmcloud cs cluster config --cluster <nombre_cluster>`<br/>
-     Si no conocemos el nombre de nuestro cluster podemos utilizar el comando `ibmcloud cs clusters`
+- Configurar el plugin kubernetes-service: <br/>
+  `ibmcloud cs cluster config --cluster <nombre_cluster>`<br/>
+  Si no conocemos el nombre de nuestro cluster podemos utilizar el comando `ibmcloud cs clusters`
 
-   - Desplegar la imagen en nuestro Cluster: <br/>
-     `kubectl run mongo --image=<region>/<namespace>/mongo`
+- Desplegar la imagen en nuestro Cluster: <br/>
+  `kubectl run mongo --image=<region>/<namespace>/mongo`
 
-   - Exponer el Pod creado:<br/>
-     `kubectl expose deployment/mongo --type="NodePort" --port=27017`<br/>
+- Exponer el Pod creado:<br/>
+  `kubectl expose deployment/mongo --type="NodePort" --port=27017`<br/>
 
-4. Crear y desplegar la imagen Docker :whale: de nuestra aplicación
+### Crear y desplegar la imagen Docker :whale: de nuestra aplicación
 
-   Para poder enlazar la imagen creada con nuestra aplicación necesitamos la IP y el puerto generado en el paso anterior, para eso ejecutamos el comando: <br/>
+Para poder enlazar la imagen creada con nuestra aplicación necesitamos la IP y el puerto generado en el paso anterior, para eso ejecutamos el comando: <br/>
 
-   - Puerto: `kubectl describe service mongo`<br/>
+- Puerto: `kubectl describe service mongo`<br/>
 
-   - IP: `ibmcloud cs workers --cluster <nombre_cluster>`
+- IP: `ibmcloud cs workers --cluster <nombre_cluster>`
 
-   Con la IP y el puerto editamos el archivo app.ts ubicado en la carpeta server, modificando las lineas de conexión con la base de datos.
+Con la IP y el puerto editamos el archivo app.ts ubicado en la carpeta server, modificando las lineas de conexión con la base de datos.
 
 ```typescript
 mongoose
@@ -103,7 +103,7 @@ mongoose
   `kubectl expose deployment/<nombre_servicio> --type="NodePort" --port=<port>`<br/>
   _El puerto debe ser el definido en el archivo app.ts_
 
-Como en el despliegue de la imagen de nuestra base de datos, debemos encontrar el Endpoint de nuestra aplicacion, ejecutamos los mismos comandos listados al inicio del paso 4. Se podrá dar cuenta que la IP no ha cambiado ya que el IKS se encarga de enrutar los servicios por puerto y por carga, usando el Load Balancer provisto.
+Como en el despliegue de la imagen de nuestra base de datos, debemos encontrar el Endpoint de nuestra aplicacion, ejecutamos los mismos comandos listados al inicio de esta sección. Se podrá dar cuenta que la IP no ha cambiado ya que el IKS se encarga de enrutar los servicios por puerto y por carga, usando el Load Balancer provisto.
 
 - Puerto: `kubectl describe service <nombre_servicio>`<br/>
 
