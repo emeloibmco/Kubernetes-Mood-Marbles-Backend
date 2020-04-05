@@ -53,8 +53,8 @@ La aplicación utiliza MongoDB como base de datos NoSQL.
   Para descargar la imagen oficial de MongoDB, almacenada en el registro de imagenes Docker Hub, utilizar el comando: <br/>
   `docker pull mongo:latest`
 
-- Crear la imagen desplegable en el Container Registery de IBM:<br/>
-  `docker build --tag <region>/<namespace>/mongo`
+- Cambiar tag de la imagen para que sea compatible con la region y el espacio de nombre de nuestro IKS:<br/>
+  `docker tag mongo:latest <region>/<namespace>/mongo`
 
 - Subir imagen a Container Registery:
   `docker push <region>/<namespace>/mongo`
