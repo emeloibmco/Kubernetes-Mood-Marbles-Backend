@@ -10,7 +10,6 @@ export default function setRoutes(app) {
   const poolCtrl = new PoolCtrl();
   const userCtrl = new UserCtrl();
 
-  // Cats
   router.route('/pools').get(poolCtrl.getAll);
   router.route('/pools/count').get(poolCtrl.count);
   router.route('/pool').post(poolCtrl.newPool);

@@ -3,14 +3,14 @@ FROM node:10
 WORKDIR /usr/src/app
 # Install app dependencies
 
-COPY package.json ./
+COPY backend/package.json ./
 
 RUN npm install
 
 # Copy app source code
-COPY . . 
+COPY /backend/ . 
 
-RUN npm install -g nodemon
+RUN npm run predev
 
 #Expose port and start application
 EXPOSE 3000

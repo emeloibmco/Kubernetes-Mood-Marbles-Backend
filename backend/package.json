@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "description": "backend for mood marbles app",
   "scripts": {
-    "start": "nodemon dist/server/app.js",
+    "start": "node dist/server/app.js",
     "predev": "tsc -p server",
     "dev": "nodemon dist/server/app.js",
     "test": "echo 'no hay test script' "

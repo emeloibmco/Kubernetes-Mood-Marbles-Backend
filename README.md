@@ -28,7 +28,7 @@ En azul se resalta la parte contenida en este repositorio <br/>
 
 ### **Hands On**:
 
-### Instalar o actualizar los plugins necesarios del IBM Cloud CLI. Reemplazar `install` con `update` si es el caso.
+#### Instalar o actualizar los plugins necesarios del IBM Cloud CLI. Reemplazar `install` con `update` si es el caso.
 
 ```sh
 ibmcloud plugin install kubernetes-service
@@ -79,7 +79,7 @@ Para poder enlazar la imagen creada con nuestra aplicación necesitamos la IP y 
 
 - IP: `ibmcloud cs workers --cluster <nombre_cluster>`
 
-Con la IP y el puerto editamos el archivo app.ts ubicado en la carpeta server, modificando las lineas de conexión con la base de datos.
+Con la IP y el puerto editamos el archivo app.ts ubicado en la carpeta backend/server, modificando las lineas de conexión con la base de datos.
 
 ```typescript
 mongoose
@@ -91,7 +91,7 @@ mongoose
 ```
 
 - Crear la imagen desplegable en el Container Registery de IBM:<br/>
-  `docker build --tag <region>/<namespace>/<nombre_imagen>`
+  `docker build . --tag <region>/<namespace>/<nombre_imagen>`
 
 - Subir imagen al Container Registery:
   `docker push <region>/<namespace>/<nombre_imagen>`

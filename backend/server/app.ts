@@ -22,7 +22,7 @@ mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-  .connect("mongodb://173.193.92.5:30780/marblesdb")
+  .connect("mongodb://169.48.255.194:32513/marblesdb")
   .then((_db: any) => {
     console.log(`Connected to MongoDB!`);
   })
