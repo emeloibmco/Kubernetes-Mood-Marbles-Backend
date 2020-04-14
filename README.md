@@ -12,7 +12,7 @@ Para consultar el código del Frontend visitar el **[repositorio](https://github
 ## :package: Arquitectura
 
 En azul se resalta la parte contenida en este repositorio <br/>
-![Arquitectura Kubernetes Backend Service](https://github.com/emeloibmco/Kubernetes-Mood-Marbles-Backend/master/github/images/Mood_Marbles_Arch.png)
+![Arquitectura Kubernetes Backend Service](https://raw.githubusercontent.com/emeloibmco/Kubernetes-Mood-Marbles-Backend/master/github/images/Mood_Marbles_Arch.png)
 
 ---
 
