@@ -32,7 +32,7 @@ En azul se resalta la parte contenida en este repositorio <br/>
 
 ```sh
 ibmcloud plugin install kubernetes-service
-ibmcloud plugin install container-registery
+ibmcloud plugin install container-registry
 ```
 
 ### Configuración del Container Registery (CR) de IBM en nuestra interfaz de comandos:
